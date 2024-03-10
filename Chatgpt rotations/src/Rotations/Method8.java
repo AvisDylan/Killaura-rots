@@ -1,0 +1,26 @@
+package Rotations;
+
+public class Method8 {
+    static double observerX = 0.0;
+    static double observerY = 0.0;
+    static double observerZ = 0.0;
+
+    static double targetX = 1.0;
+    static double targetY = 1.0;
+    static double targetZ = 1.0;
+
+    public static double[] rots = calculateYawPitch(observerX, observerY, observerZ, targetX, targetY, targetZ);
+
+    private static double[] calculateYawPitch(double observerX, double observerY, double observerZ,
+                                              double targetX, double targetY, double targetZ) {
+        double dx = targetX - observerX;
+        double dy = targetY - observerY;
+        double dz = targetZ - observerZ;
+
+        double yaw = Math.toDegrees(Math.atan2(dx, dz));
+        double pitch = Math.toDegrees(Math.acos((dx * (targetX - observerX) + dy * (targetY - observerY) + dz * (targetZ - observerZ)) /
+                (Math.sqrt(dx * dx + dy * dy + dz * dz) * Math.sqrt((targetX - observerX) * (targetX - observerX) + (targetY - observerY) * (targetY - observerY) + (targetZ - observerZ) * (targetZ - observerZ)))));
+
+        return new double[]{yaw, pitch};
+    }
+}
